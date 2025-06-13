@@ -89,46 +89,45 @@ try {
             <table class="nao-agendados-table">
                 <thead>
                     <tr>
-                        <th>Título do TCC</th>
-                        <th>Alunos</th>
-                        <th>Tipo TCC</th>
-                        <th>Ações</th> 
+                    <th>#</th> <th>Título do TCC</th>
+                    <th>Alunos</th>
+                    <th>Tipo TCC</th>
+                    <th>Ações</th> 
                     </tr>
                 </thead>
-                <tbody>
-                    <?php 
-                    // O laço while continua o mesmo
+            <tbody>
+                <?php 
+                    $contador = 1; // 2. INICIA O CONTADOR ANTES DO LAÇO
                     while ($dados_tcc = $stmt_tccs_sem_agendamento->fetch(PDO::FETCH_ASSOC)): 
-                        
-                        // ALTERAÇÃO: AQUI ACONTECE A INSTANCIAÇÃO DO OBJETO!
-                        // Pegamos o array de dados do banco e o usamos para criar um objeto Tcc.
-                        $tcc = new Tcc($dados_tcc);
-                    ?>
-                        <tr>
-                            <td><?php echo htmlspecialchars($tcc->titulo); ?></td>
-                            <td>
-                                <?php 
-                                // ALTERAÇÃO: Usamos o método do objeto para obter os nomes
-                                echo htmlspecialchars($tcc->getAlunosNomes()); 
-                                ?>
-                            </td>
-                            <td><?php echo htmlspecialchars($tcc->tipo_tcc_descricao); ?></td>
-                            <td>
-                                <a href="agendar_tcc.php?id_tcc=<?php echo $tcc->id_tcc; ?>" class="action-link">Agendar Defesa</a>
-                                <a href="editar_tcc.php?id_tcc=<?php echo $tcc->id_tcc; ?>" class="action-link edit-button" title="Editar TCC">
-                                    <i class="fas fa-pencil-alt"></i> 
-                                </a>
-                                <a href="remover_tcc.php?id_tcc=<?php echo $tcc->id_tcc; ?>" class="action-link remove-button" onclick="return confirm('Tem certeza que deseja remover este TCC? Esta ação é irreversível.');" title="Remover TCC">
-                                    <i class="fas fa-times"></i> 
-                                </a>
-                            </td>
-                        </tr>
-                    <?php endwhile; ?>
-                </tbody>
-            </table>
+                    $tcc = new Tcc($dados_tcc);
+                ?>
+                <tr>
+                    <td><?php echo $contador; ?></td> <td><?php echo htmlspecialchars($tcc->titulo); ?></td>
+                    <td>
+                        <?php 
+                        echo htmlspecialchars($tcc->getAlunosNomes()); 
+                        ?>
+                    </td>
+                    <td><?php echo htmlspecialchars($tcc->tipo_tcc_descricao); ?></td>
+                    <td>
+                        <a href="agendar_tcc.php?id_tcc=<?php echo $tcc->id_tcc; ?>" class="action-link">Agendar Defesa</a>
+                        <a href="editar_tcc.php?id_tcc=<?php echo $tcc->id_tcc; ?>" class="action-link edit-button" title="Editar TCC">
+                        <i class="fas fa-pencil-alt"></i> 
+                            </a>
+                        <a href="remover_tcc.php?id_tcc=<?php echo $tcc->id_tcc; ?>" class="action-link remove-button" onclick="return confirm('Tem certeza que deseja remover este TCC? Esta ação é irreversível.');" title="Remover TCC">
+                            <i class="fas fa-times"></i> 
+                        </a>
+                    </td>
+                </tr>
+             <?php 
+             $contador++; // 4. INCREMENTA O CONTADOR PARA A PRÓXIMA VOLTA
+            endwhile; 
+            ?>
+        </tbody>
+    </table>
         <?php else: ?>
             <p class="no-data">Todos os TCCs que você orienta já estão agendados, ou você não é orientador de nenhum TCC.</p>
         <?php endif; ?>
     </main>
 </body>
-</html>
+</html> <table class="nao-agendados-table">
