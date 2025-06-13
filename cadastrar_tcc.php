@@ -1,4 +1,3 @@
-// cadastrar_tcc.php - SALVE ESTE CÓDIGO NESTE ARQUIVO.
 <?php
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
@@ -154,7 +153,18 @@ try {
                     <?php endforeach; ?>
                 <?php endif; ?>
             </select>
-
+            
+            <label for="ano_defesa">Ano de Defesa:</label>
+            <select id="ano_defesa" name="ano_defesa" required>
+                <?php
+                $ano_atual = date("Y"); // Pega o ano atual, ex: 2025
+                // O laço FOR começa no ano atual e cria opções para os próximos 5 anos
+                for ($i = 0; $i < 5; $i++) {
+                    $ano_opcao = $ano_atual + $i;
+                    echo "<option value='{$ano_opcao}'>{$ano_opcao}</option>";
+                }
+                ?>
+            </select>
             <button type="submit">Salvar TCC</button>
         </form>
     </main>
